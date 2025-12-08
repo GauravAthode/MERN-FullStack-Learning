@@ -40,7 +40,7 @@ function downloadFile(){
         return;
     }
 
-    const headers=Object.keys(data[0]).join(",")+"\n";
+    const headers=Objectbject.keys(data[0]).join(",")+"\n";
 
     const rows=data.map((item)=> Object.values(item).join(",")).join("\n");
 
