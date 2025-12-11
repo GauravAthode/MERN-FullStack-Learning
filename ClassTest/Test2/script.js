@@ -1,181 +1,106 @@
-function search() {
-  const state = document.getElementById("state").value.trim().toLowerCase();
+const statesData = [
+  { name: "Andhra Pradesh", top: 70, left: 40 },
+  { name: "Arunachal Pradesh", top: 20, left: 88 },
+  { name: "Assam", top: 25, left: 82 },
+  { name: "Bihar", top: 35, left: 65 },
+  { name: "Chhattisgarh", top: 50, left: 55 },
+  { name: "Delhi", top: 28, left: 35 },
+  { name: "Goa", top: 70, left: 30 },
+  { name: "Gujarat", top: 45, left: 20 },
+  { name: "Haryana", top: 25, left: 32 },
+  { name: "Himachal Pradesh", top: 15, left: 35 },
+  { name: "Jammu & Kashmir", top: 8, left: 32 },
+  { name: "Jharkhand", top: 40, left: 60 },
+  { name: "Karnataka", top: 75, left: 35 },
+  { name: "Kerala", top: 88, left: 38 },
+  { name: "Madhya Pradesh", top: 50, left: 45 },
+  { name: "Maharashtra", top: 58, left: 30 },
+  { name: "Manipur", top: 35, left: 88 },
+  { name: "Meghalaya", top: 30, left: 80 },
+  { name: "Mizoram", top: 40, left: 85 },
+  { name: "Nagaland", top: 28, left: 88 },
+  { name: "Odisha", top: 55, left: 65 },
+  { name: "Punjab", top: 20, left: 30 },
+  { name: "Rajasthan", top: 35, left: 25 },
+  { name: "Sikkim", top: 22, left: 72 },
+  { name: "Tamil Nadu", top: 85, left: 45 },
+  { name: "Telangana", top: 65, left: 45 },
+  { name: "Tripura", top: 38, left: 80 },
+  { name: "Uttar Pradesh", top: 32, left: 50 },
+  { name: "Uttarakhand", top: 22, left: 45 },
+  { name: "West Bengal", top: 40, left: 70 },
+];
 
-  if (!state) {
-    alert("State Empty");
+const mapContainer = document.getElementById("mapContainer");
+const stateSelect = document.getElementById("stateSelect");
+
+window.onload = function () {
+  statesData.forEach((state) => {
+    const option = document.createElement("option");
+    option.value = state.name;
+    option.innerText = state.name;
+    stateSelect.appendChild(option);
+  });
+};
+
+function createMarker(state) {
+  const marker = document.createElement("div");
+
+  marker.className =
+    "position-absolute translate-middle rounded-circle bg-success border border-2 border-white";
+  marker.title = state.name;
+
+  marker.style.width = "20px";
+  marker.style.height = "20px";
+  marker.style.top = state.top + "%";
+  marker.style.left = state.left + "%";
+  marker.style.cursor = "pointer";
+
+  marker.onmouseover = () => {
+    marker.classList.remove("bg-success");
+    marker.classList.add("bg-danger");
+  };
+  marker.onmouseout = () => {
+    marker.classList.remove("bg-danger");
+    marker.classList.add("bg-success");
+  };
+  marker.onclick = () => alert(state.name);
+
+  return marker;
+}
+
+function clearAll() {
+  const children = Array.from(mapContainer.children);
+  children.forEach((child) => {
+    if (child.tagName !== "IMG") {
+      child.remove();
+    }
+  });
+  stateSelect.value = "none";
+}
+
+function addAll() {
+  clearAll();
+  statesData.forEach((state) => {
+    const marker = createMarker(state);
+    mapContainer.appendChild(marker);
+  });
+}
+
+function handleDropdownChange() {
+  const selectedName = stateSelect.value;
+  if (selectedName === "none") {
+    clearAll();
     return;
   }
+  clearAll();
+  const state = statesData.find((s) => s.name === selectedName);
+  if (state) {
+    const marker = createMarker(state);
+    mapContainer.appendChild(marker);
+  }
+}
 
-  const flag = document.createElement("i");
-  flag.classList.add("bi", "bi-flag-fill", "text-danger", "fs-3");
-  flag.style.position = "absolute";
-
-  
-
-  if (state === "himachal pradesh") {
-    flag.style.top = "240px";
-    flag.style.left = "380px";
-    flag.title = "State: Himachal Pradesh\nCapital: Shimla";
-  }
-    if (state === "tripura") {
-    flag.style.top = "570px";
-    flag.style.left = "840px";
-    flag.title = "State: Tirpura\nCapital: Agartala";
-  }
-  if (state === "mizoram") {
-    flag.style.top = "580px";
-    flag.style.left = "880px";
-    flag.title = "State: Mizoram\nCapital: Aizawl";
-  }
-  if (state === "Manipur") {
-    flag.style.top = "530px";
-    flag.style.left = "910px";
-    flag.title = "State: Manipur\nCapital: Imphal";
-
-  }
-  if (state === "meghalay") {
-    flag.style.top = "500px";
-    flag.style.left = "820px";
-    flag.title = "State: Meghalaya\nCapital: Shillong";
-  }
-  if (state === "assam") {
-    flag.style.top = "450px";
-    flag.style.left = "860px";
-    flag.title = "State: Assam\nCapital: Dispur";
-  }
-  if (state === "nagaland") {
-    flag.style.top = "450px";
-    flag.style.left = "90px";
-    flag.title = "State: Nagaland\nCapital: Kohima";
-  }
- 
-  if (state === "telangana") {
-    flag.style.top = "720px";
-    flag.style.left = "600px";
-    flag.title = "State: Telangana\nCapital: Hyderabad";
-  }
-  if (state === "andhra pradesh") {
-    flag.style.top = "760px";
-    flag.style.left = "650px";
-    flag.title = "State: Andra Pradesh\nCapital: Amaravati";
-  }
-  if (state === "karnataka") {
-    flag.style.top = "820px";
-    flag.style.left = "500px";
-    flag.title = "State: karnataka\nCapital: Bengaluru";
-  }
-  if (state === "tamil nadu") {
-    flag.style.top = "910px";
-    flag.style.left = "580px";
-    flag.title = "State: Tamil Nadu\nCapital: Chennai";
-  }
-  if (state === "kerala") {
-    flag.style.top = "980px";
-    flag.style.left = "480px";
-    flag.title = "State: kerala\nCapital: Thiruvananthapuram";
-  }
-  if (state === "andaman nicobar") {
-    flag.style.top = "110px";
-    flag.style.left = "860px";
-    flag.title = "State: andaman nicobar\nCapital: Blair";
-  }
-
-  if (state === "punjab") {
-    flag.style.top = "270px";
-    flag.style.left = "320px";
-    flag.title = "State: Punjab\nCapital: Chandigarh";
-  }
-
-  if (state === "uttarakhand") {
-    flag.style.top = "320px";
-    flag.style.left = "440px";
-    flag.title = "State: Uttarakhand\nCapital: Dehradun";
-  }
-  if (state === "delhi") {
-    flag.style.top = "350px";
-    flag.style.left = "390px";
-    flag.title = "State: Delhi\nCapital: New Delhi";
-  }
-
-  if (state === "madhya pradesh") {
-    flag.style.top = "540px";
-    flag.style.left = "490px";
-    flag.title = "State: Madhya Pradesh\nCapital: Bhopal";
-  }
-
-  if (state === "ladakh") {
-    flag.style.top = "140px";
-    flag.style.left = "310px";
-    flag.title = "State: Ladakh\nCapital: Leh";
-  }
-
-  if (state === "jammu & kashmir" || state === "jammu and kashmir") {
-    flag.style.top = "150px";
-    flag.style.left = "420px";
-    flag.title = "State: Jammu & Kashmir\nCapital: Srinagar";
-  }
-
-  if (state === "haryana") {
-    flag.style.top = "330px";
-    flag.style.left = "340px";
-    flag.title = "State: Haryana\nCapital: Chandigarh";
-  }
-
-  if (state === "up" || state === "uttar pradesh") {
-    flag.style.top = "500px";
-    flag.style.left = "600px";
-    flag.title = "State: Uttar Pradesh\nCapital: Lucknow";
-  }
-
-  if (state === "rajasthan") {
-    flag.style.top = "450px";
-    flag.style.left = "300px";
-    flag.title = "State: Rajasthan\nCapital: Jaipur";
-  }
-
-  if (state === "bihar") {
-    flag.style.top = "510px";
-    flag.style.left = "660px";
-    flag.title = "State: Bihar\nCapital: Patna";
-  }
-
-  if (state === "jharkhand") {
-    flag.style.top = "580px";
-    flag.style.left = "640px";
-    flag.title = "State: Jharkhand\nCapital: Ranchi";
-  }
-
-  if (state === "west bengal") {
-    flag.style.top = "590px";
-    flag.style.left = "720px";
-    flag.title = "State: West Bengal\nCapital: Kolkata";
-  }
-
-  if (state === "chhattisgarh") {
-    flag.style.top = "630px";
-    flag.style.left = "560px";
-    flag.title = "State: Chhattisgarh\nCapital: Raipur";
-  }
-
-  if (state === "maharashtra") {
-    flag.style.top = "690px";
-    flag.style.left = "450px";
-    flag.title = "State: Maharashtra\nCapital: Mumbai";
-  }
-  if (state === "sikkim") {
-    flag.style.top = "410px";
-    flag.style.left = "740px";
-    flag.title = "State: Sikkim\nCapital: Gangtok";
-  }
- if (state === "arunachal pradesh") {
-    flag.style.top = "360px";
-    flag.style.left = "830px";
-    flag.title = "State: arunachal pradesh\nCapital: itanagar";
-  }
-
-  
-  
-
-  document.getElementById("Map").appendChild(flag);
-  document.getElementById("state").value = "";
+function toggleSound() {
+  alert("Sound functionality placeholder");
 }
