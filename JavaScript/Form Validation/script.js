@@ -47,7 +47,6 @@ function Submit(){
         "only Alphabets and Spaces are Allowed"
         return;
     }
-
    }
 
 
