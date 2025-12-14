@@ -20,6 +20,8 @@ function calculateAge() {
         return;
     }
 
+    //this part reference from gpt
+
     let age = currentDate.getFullYear() - birthDate.getFullYear();
     const monthDiff = currentDate.getMonth() - birthDate.getMonth();
     const dayDiff = currentDate.getDate() - birthDate.getDate();
