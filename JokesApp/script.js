@@ -8,6 +8,7 @@ async function GetNewJoke(){
 
     document.getElementById("setup").innerText=data.setup;
     document.getElementById("punchline").innerText=data.punchline;
+    
 
 
 }
