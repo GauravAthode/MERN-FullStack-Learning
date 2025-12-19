@@ -17,7 +17,6 @@ async function getweather() {
         </div>`;
 }
 
-
 async function getGeoLoc(city) {
   console.log(city);
   const response = await fetch(
