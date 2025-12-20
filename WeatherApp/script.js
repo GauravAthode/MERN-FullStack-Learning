@@ -23,7 +23,6 @@ async function getGeoLoc(city) {
     `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=7547eae252f449372e1339e9c279cbcd`
   );
   const data = await response.json();
-
   const lat = data[0].lat;
   const lon = data[0].lon;
   return { lat, lon };
