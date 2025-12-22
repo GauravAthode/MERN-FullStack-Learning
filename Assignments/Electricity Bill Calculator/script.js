@@ -29,8 +29,6 @@ function calculateBill() {
     const surcharge = subtotal * 0.20;
     const grandTotal = subtotal + surcharge;
 
-    // this part toFixed function refrence form  chat gpt
-
     document.getElementById('slab1').innerText = `₹${slab1.toFixed(2)}`;
     document.getElementById('slab2').innerText = `₹${slab2.toFixed(2)}`;
     document.getElementById('slab3').innerText = `₹${slab3.toFixed(2)}`;
