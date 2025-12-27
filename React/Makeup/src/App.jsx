@@ -1,26 +1,22 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.min.js";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
 import About from "./pages/About";
-import Product from "./pages/Product";
-import Contact from "./pages/Contact";
-
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Contact from "./pages/Contact";
+import Home from "./pages/Home.Jsx";
+import Product from "./pages/Product";
 
 function App() {
   return (
     <>
       <BrowserRouter>
       <Header/>
+
       <Routes>
-        <Route path="/"element={<Home/>}/>
-        <Route path="/About"element={<About/>}/>
-        <Route path="/Contact"element={<Contact/>}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/About" element={<About/>}/>
+        <Route path="/Contact" element={<Contact/>}/>
         <Route path="/Product"element={<Product/>}/>
       </Routes>
       </BrowserRouter>
@@ -29,3 +25,4 @@ function App() {
 }
 
 export default App;
+

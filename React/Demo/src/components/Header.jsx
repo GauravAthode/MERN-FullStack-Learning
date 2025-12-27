@@ -4,13 +4,13 @@ import {Link} from "react-router-dom";
 const Header= () =>{
     return(
         <>
-        <div className="d-flex justify-content-between p-2 bg-primary text-light">
+        <div className="">
             <h1>My Website</h1>
             <div className="d-flex gap-3">
-                <Link to={"/Home"} className="text-decoration-none text-light">Home</Link>
-                <Link to={"/About"} className="text-decoration-none text-light">About</Link>
-                <Link to={"/Product"} className="text-decoration-none text-light">Product</Link>
-                <Link to={"/Contact"} className="text-decoration-none text-light">Contact</Link>
+                <Link to={"/Home"} className="decoration-none text-white">Home</Link>
+                <Link to={"/About"} className="decoration-none text-white">About</Link>
+                <Link to={"/Product"} className="decoration-none text-white">Product</Link>
+                <Link to={"/Contact"} className="decoration-none text-white">Contact</Link>
             </div>
         </div>
         </>
