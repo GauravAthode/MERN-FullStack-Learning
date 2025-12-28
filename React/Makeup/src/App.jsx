@@ -19,6 +19,7 @@ function App() {
         <Route path="/Contact" element={<Contact/>}/>
         <Route path="/Product"element={<Product/>}/>
       </Routes>
+      <Footer/>
       </BrowserRouter>
     </>
   );

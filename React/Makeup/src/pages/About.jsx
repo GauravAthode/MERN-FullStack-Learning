@@ -6,7 +6,7 @@ const About = () => {
     <>
       <div className="text-center mt-8">
         <h1 className="text-5xl font-bold text-pink-500">
-          About Beauty Makeup
+          About Us
         </h1>
         <p className="text-xl text-gray-600 mt-3">
           ✨Enhancing your natural beauty with care & confidence✨
