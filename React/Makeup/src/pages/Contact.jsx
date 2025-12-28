@@ -30,7 +30,7 @@ const Contact = () => {
               <b>Address: </b>Ayodhya Bypass, Bhopal, Madhya Pradesh, 462041
             </p>
             <p>
-              <b>Working Hours: </b>Mon – Sat | 10:00 AM – 6:00 PM
+              <b>Working Hours: </b>Mon - Sat | 10:00 AM - 6:00 PM
             </p>
           </div>
         </div>
