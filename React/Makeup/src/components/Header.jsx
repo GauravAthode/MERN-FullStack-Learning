@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import { CgGirl } from "react-icons/cg";
 
 const Header = () => {
+  
   return (
     <>
       <div className="flex justify-between p-6 bg-gray-800 text-pink-600 rounded-2xl">
