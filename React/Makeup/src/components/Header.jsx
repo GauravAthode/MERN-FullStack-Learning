@@ -6,7 +6,7 @@ const Header = () => {
   
   return (
     <>
-      <div className="flex justify-between p-6 bg-gray-800 text-pink-600 rounded-2xl">
+      <div className="flex justify-between p-6 bg-gray-800 text-pink-600 rounded-2xl sticky top-1 opacity-95">
 
         <div className="text-4xl font-bold flex gap-3 items-center"><CgGirl /><h1>Beauty Makeup</h1></div>
         <div className="flex gap-20">
