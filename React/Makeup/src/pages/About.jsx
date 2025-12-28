@@ -19,10 +19,10 @@ const About = () => {
 
         <div className="w-1/2 text-gray-700 text-lg">
           <p>
-            <span className="font-semibold text-pink-500">Beauty Makeup</span> is
-            a premium beauty brand dedicated to enhancing your natural glow.
-            Our products are designed to make you feel confident, elegant,
-            and beautiful every day.
+            <span className="font-semibold text-pink-500">Beauty Makeup</span>{" "}
+            is a premium beauty brand dedicated to enhancing your natural glow.
+            Our products are designed to make you feel confident, elegant, and
+            beautiful every day.
           </p>
 
           <p className="mt-4">

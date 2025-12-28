@@ -12,7 +12,8 @@ const Home = () => {
           Welcome to Beauty Makeup
         </h1>
         <p className="text-xl text-gray-600 mt-3">
-          ✨Discover premium beauty products designed to enhance your natural glow✨
+          ✨Discover premium beauty products designed to enhance your natural
+          glow✨
         </p>
       </div>
       <div className="flex gap-3 m-20 p-3 border-10 shadow-2xl border-pink-100 mt-10">
