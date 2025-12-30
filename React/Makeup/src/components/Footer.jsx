@@ -59,8 +59,9 @@ const Footer = () => {
 
       </div>
 
-      <div className="text-center border-t border-pink-200 py-6 text-gray-600">
-        © 2025 Beauty Makeup. All rights reserved.
+      <div className=" border-t border-pink-200 py-6 text-gray-600 flex justify-end gap-100">
+        <div>© 2025 Beauty Makeup. All rights reserved.</div>
+        <div>Made with 💖 By Gaurav</div>
       </div>
     </footer>
   );
