@@ -1,11 +1,11 @@
 import React from "react";
-import RegistrationForm from "./pages/RegistrationForm";
+import Register from "./pages/RegistrationForm.jsx";
+import Toaster from "react-hot-toast"
 
 const App = () => {
   return (
-    <div className="">
-      <RegistrationForm />
-    </div>
+    <Register/>
+    
   );
 };
 
