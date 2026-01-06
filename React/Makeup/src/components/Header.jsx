@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { CgGirl } from "react-icons/cg";
+import logo from "../assets/logo.png"
 
 const Header = () => {
   return (
     <>
-      <div className="flex justify-between items-center p-6 bg-gray-800 text-pink-600 rounded-2xl sticky top-1 opacity-90 z-10">
+      <div className="flex justify-between items-center bg-gray-800 text-pink-600 rounded-2xl sticky top-1 opacity-90 z-10">
 
         <div className="text-4xl font-bold flex gap-3 items-center">
-          <CgGirl />
+          <img src={logo} alt=""  className='h-30 w-20 '/>
           <h1>Beauty Makeup</h1>
         </div>
 
