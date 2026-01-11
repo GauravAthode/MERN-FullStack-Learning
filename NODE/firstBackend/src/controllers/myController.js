@@ -95,7 +95,7 @@ export const UserUpdate = async (req, res, next) => {
     existingUser.phone = phone;
 
     await existingUser.save();
-
+    
     res
       .status(200)
       .json({ message: "User Updated Successfully", data: existingUser });
