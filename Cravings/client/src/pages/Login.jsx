@@ -32,8 +32,6 @@ const Login = () => {
     ) {
       Error.email = "Use Proper Email Format";
     }
-
-
     setValidationError(Error);
 
     return Object.keys(Error).length > 0 ? false : true;
