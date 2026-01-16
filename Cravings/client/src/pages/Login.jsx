@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import api from "../config/Api";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,25 +20,16 @@ const Login = () => {
   };
 
   const handleClearForm = () => {
-    setFormData({
-      email: "",
-      password: "",
-    });
+    setFormData({ email: "", password: "" });
   };
 
   const validate = () => {
     let Error = {};
-
-    if (
-      !/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
-        formData.email
-      )
-    ) {
+    if (!/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(formData.email)) {
       Error.email = "Use Proper Email Format";
     }
-
     setValidationError(Error);
-    return Object.keys(Error).length > 0 ? false : true;
+    return Object.keys(Error).length === 0;
   };
 
   const handleSubmit = async (e) => {
@@ -64,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-(--color-background) px-4">
+    <div className="min-h-screen flex items-center justify-center bg-(--color-background) px-4 py-10">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
 
         {/* Heading */}
@@ -75,8 +67,8 @@ const Login = () => {
           Login to continue ordering delicious food
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
+        {/* Login Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
             name="email"
@@ -85,14 +77,9 @@ const Login = () => {
             onChange={handleChange}
             disabled={isLoading}
             required
-            className="w-full px-4 py-3 rounded-lg border 
-              border-(--color-primary)/20
-              focus:border-(--color-secondary)
-              focus:ring-2 focus:ring-(--color-secondary)/30
-              outline-none transition disabled:bg-gray-100"
+            className="w-full px-4 py-3 rounded-lg border border-(--color-primary)/20 focus:border-(--color-secondary) focus:ring-2 focus:ring-(--color-secondary)/30 outline-none transition disabled:bg-gray-100"
           />
 
-          {/* Password */}
           <input
             type="password"
             name="password"
@@ -101,26 +88,30 @@ const Login = () => {
             onChange={handleChange}
             disabled={isLoading}
             required
-            className="w-full px-4 py-3 rounded-lg border 
-              border-(--color-primary)/20
-              focus:border-(--color-secondary)
-              focus:ring-2 focus:ring-(--color-secondary)/30
-              outline-none transition disabled:bg-gray-100"
+            className="w-full px-4 py-3 rounded-lg border border-(--color-primary)/20 focus:border-(--color-secondary) focus:ring-2 focus:ring-(--color-secondary)/30 outline-none transition disabled:bg-gray-100"
           />
 
-          {/* Login Button */}
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 rounded-lg font-bold text-white
-              bg-(--color-secondary)
-              hover:bg-(--color-secondary-hover)
-              shadow-lg transition transform hover:scale-105
-              disabled:scale-100 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="w-full py-3 rounded-lg font-bold text-white bg-(--color-secondary) hover:bg-(--color-secondary-hover) shadow-lg transition transform hover:scale-105 disabled:scale-100 disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        {/* Extra Links */}
+        <div className="text-center mt-4">
+          <p className="text-sm text-(--color-text)/70">
+            Don’t have an account?{" "}
+            <Link
+              to="/register"
+              className="font-semibold text-(--color-secondary) hover:text-(--color-secondary-hover)"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </div>
 
         {/* Footer */}
         <p className="text-xs text-center text-(--color-text)/60 mt-6">

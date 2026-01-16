@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -32,27 +34,25 @@ const Register = () => {
     let Error = {};
 
     if (formData.fullName.length < 3) {
-      Error.fullName = "Name should be More Than 3 Characters";
-    } else {
-      if (!/^[A-Za-z ]+$/.test(formData.fullName)) {
-        Error.fullName = "Only Contain A-Z , a-z and space";
-      }
+      Error.fullName = "Name should be more than 3 characters";
+    } else if (!/^[A-Za-z ]+$/.test(formData.fullName)) {
+      Error.fullName = "Only letters A-Z and spaces allowed";
     }
 
-    if (
-      !/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
-        formData.email
-      )
-    ) {
-      Error.email = "Use Proper Email Format";
+    if (!/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(formData.email)) {
+      Error.email = "Use proper email format";
     }
 
     if (!/^[6-9]\d{9}$/.test(formData.mobileNumber)) {
-      Error.mobileNumber = "Only Indian Mobile Number allowed";
+      Error.mobileNumber = "Only Indian mobile numbers allowed";
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      Error.confirmPassword = "Passwords do not match";
     }
 
     setValidationError(Error);
-    return Object.keys(Error).length > 0 ? false : true;
+    return Object.keys(Error).length === 0;
   };
 
   const handleSubmit = async (e) => {
@@ -61,7 +61,7 @@ const Register = () => {
 
     if (!validate()) {
       setIsLoading(false);
-      toast.error("Fill the Form Correctly");
+      toast.error("Please fill the form correctly");
       return;
     }
 
@@ -69,6 +69,7 @@ const Register = () => {
       const res = await api.post("/auth/register", formData);
       toast.success(res.data.message);
       handleClearForm();
+      navigate("/login");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -78,7 +79,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-(--color-background) px-4">
+    <div className="min-h-screen flex items-center justify-center bg-(--color-background) px-4 py-10">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
 
         {/* Heading */}
@@ -86,38 +87,25 @@ const Register = () => {
           Create Account
         </h2>
         <p className="text-center text-(--color-text)/70 mt-2 mb-8">
-          Sign up to start ordering delicious food
+          Sign up to start ordering your favorite food
         </p>
 
-        <form
-          onSubmit={handleSubmit}
-          onReset={handleClearForm}
-          className="space-y-4"
-        >
-          {/* Full Name */}
-          <div>
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              value={formData.fullName}
-              onChange={handleChange}
-              disabled={isLoading}
-              required
-              className="w-full px-4 py-3 rounded-lg border
-                border-(--color-primary)/20
-                focus:border-(--color-secondary)
-                focus:ring-2 focus:ring-(--color-secondary)/30
-                outline-none transition disabled:bg-gray-100"
-            />
-            {validationError.fullName && (
-              <span className="text-xs text-red-500">
-                {validationError.fullName}
-              </span>
-            )}
-          </div>
+        {/* Register Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="fullName"
+            placeholder="Full Name"
+            value={formData.fullName}
+            onChange={handleChange}
+            disabled={isLoading}
+            required
+            className="w-full px-4 py-3 rounded-lg border border-(--color-primary)/20 focus:border-(--color-secondary) focus:ring-2 focus:ring-(--color-secondary)/30 outline-none transition disabled:bg-gray-100"
+          />
+          {validationError.fullName && (
+            <p className="text-xs text-red-500">{validationError.fullName}</p>
+          )}
 
-          {/* Email */}
           <input
             type="email"
             name="email"
@@ -126,14 +114,12 @@ const Register = () => {
             onChange={handleChange}
             disabled={isLoading}
             required
-            className="w-full px-4 py-3 rounded-lg border
-              border-(--color-primary)/20
-              focus:border-(--color-secondary)
-              focus:ring-2 focus:ring-(--color-secondary)/30
-              outline-none transition disabled:bg-gray-100"
+            className="w-full px-4 py-3 rounded-lg border border-(--color-primary)/20 focus:border-(--color-secondary) focus:ring-2 focus:ring-(--color-secondary)/30 outline-none transition disabled:bg-gray-100"
           />
+          {validationError.email && (
+            <p className="text-xs text-red-500">{validationError.email}</p>
+          )}
 
-          {/* Mobile */}
           <input
             type="tel"
             name="mobileNumber"
@@ -143,30 +129,23 @@ const Register = () => {
             onChange={handleChange}
             disabled={isLoading}
             required
-            className="w-full px-4 py-3 rounded-lg border
-              border-(--color-primary)/20
-              focus:border-(--color-secondary)
-              focus:ring-2 focus:ring-(--color-secondary)/30
-              outline-none transition disabled:bg-gray-100"
+            className="w-full px-4 py-3 rounded-lg border border-(--color-primary)/20 focus:border-(--color-secondary) focus:ring-2 focus:ring-(--color-secondary)/30 outline-none transition disabled:bg-gray-100"
           />
+          {validationError.mobileNumber && (
+            <p className="text-xs text-red-500">{validationError.mobileNumber}</p>
+          )}
 
-          {/* Password */}
           <input
             type="password"
             name="password"
-            placeholder="Create Password"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
             disabled={isLoading}
             required
-            className="w-full px-4 py-3 rounded-lg border
-              border-(--color-primary)/20
-              focus:border-(--color-secondary)
-              focus:ring-2 focus:ring-(--color-secondary)/30
-              outline-none transition disabled:bg-gray-100"
+            className="w-full px-4 py-3 rounded-lg border border-(--color-primary)/20 focus:border-(--color-secondary) focus:ring-2 focus:ring-(--color-secondary)/30 outline-none transition disabled:bg-gray-100"
           />
 
-          {/* Confirm Password */}
           <input
             type="password"
             name="confirmPassword"
@@ -175,44 +154,37 @@ const Register = () => {
             onChange={handleChange}
             disabled={isLoading}
             required
-            className="w-full px-4 py-3 rounded-lg border
-              border-(--color-primary)/20
-              focus:border-(--color-secondary)
-              focus:ring-2 focus:ring-(--color-secondary)/30
-              outline-none transition disabled:bg-gray-100"
+            className="w-full px-4 py-3 rounded-lg border border-(--color-primary)/20 focus:border-(--color-secondary) focus:ring-2 focus:ring-(--color-secondary)/30 outline-none transition disabled:bg-gray-100"
           />
+          {validationError.confirmPassword && (
+            <p className="text-xs text-red-500">{validationError.confirmPassword}</p>
+          )}
 
-          {/* Buttons */}
-          <div className="flex gap-4 pt-4">
-            <button
-              type="reset"
-              disabled={isLoading}
-              className="flex-1 py-3 rounded-lg font-semibold
-                bg-(--color-primary)/10
-                text-(--color-primary)
-                hover:bg-(--color-primary)/20
-                transition disabled:cursor-not-allowed"
-            >
-              Clear
-            </button>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="flex-1 py-3 rounded-lg font-bold text-white
-                bg-(--color-secondary)
-                hover:bg-(--color-secondary-hover)
-                shadow-lg transition transform hover:scale-105
-                disabled:scale-100 disabled:bg-gray-300 disabled:cursor-not-allowed"
-            >
-              {isLoading ? "Creating account..." : "Sign Up"}
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 rounded-lg font-bold text-white bg-(--color-secondary) hover:bg-(--color-secondary-hover) shadow-lg transition transform hover:scale-105 disabled:scale-100 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          >
+            {isLoading ? "Creating account..." : "Sign Up"}
+          </button>
         </form>
+
+        {/* Extra Links */}
+        <div className="text-center mt-4">
+          <p className="text-sm text-(--color-text)/70">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="font-semibold text-(--color-secondary) hover:text-(--color-secondary-hover)"
+            >
+              Login
+            </Link>
+          </p>
+        </div>
 
         {/* Footer */}
         <p className="text-xs text-center text-(--color-text)/60 mt-6">
-          🔒 Your data is safe · No spam guaranteed
+          🔒 Your information is safe with us
         </p>
       </div>
     </div>
