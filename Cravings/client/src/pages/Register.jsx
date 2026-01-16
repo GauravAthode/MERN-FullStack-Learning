@@ -69,7 +69,7 @@ const Register = () => {
       const res = await api.post("/auth/register", formData);
       toast.success(res.data.message);
       handleClearForm();
-      navigate("/login");
+      setTimeout(() => navigate("/login"),1000);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
