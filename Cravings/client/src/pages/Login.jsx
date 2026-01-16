@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,8 +35,8 @@ const Login = () => {
     ) {
       Error.email = "Use Proper Email Format";
     }
-    setValidationError(Error);
 
+    setValidationError(Error);
     return Object.keys(Error).length > 0 ? false : true;
   };
 
@@ -53,7 +54,7 @@ const Login = () => {
       const res = await api.post("/auth/login", formData);
       toast.success(res.data.message);
       handleClearForm();
-      navigate("/user-dashboard")
+      navigate("/user-dashboard");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -63,72 +64,70 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-6 px-4">
-        <div className="max-w-xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Login
-            </h1>
-           
-          </div>
+    <div className="min-h-screen flex items-center justify-center bg-(--color-background) px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
 
-          {/* Form Container */}
-          <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-            <form
-              onSubmit={handleSubmit}
-              className="p-8"
-            >
-              {/* Email */}
-              <div className="mb-10">
-                <div className="space-y-4">
-                  
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full h-fit px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  />
-                  
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    placeholder="Create Password"
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  /> 
-                </div>
-              </div>
+        {/* Heading */}
+        <h2 className="text-3xl font-extrabold text-(--color-primary) text-center">
+          Welcome Back
+        </h2>
+        <p className="text-center text-(--color-text)/70 mt-2 mb-8">
+          Login to continue ordering delicious food
+        </p>
 
-              {/* Login Button */}
-              <div className="flex gap-4 pt-8 border-t-2 border-gray-200">
-               
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 px-6 rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition duration-300 transform hover:scale-105 shadow-lg disabled:scale-100 disabled:bg-gray-300  disabled:cursor-not-allowed"
-                >
-                  {isLoading ? "Submitting" : "Login"}
-                </button>
-              </div>
-            </form>
-          </div>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            disabled={isLoading}
+            required
+            className="w-full px-4 py-3 rounded-lg border 
+              border-(--color-primary)/20
+              focus:border-(--color-secondary)
+              focus:ring-2 focus:ring-(--color-secondary)/30
+              outline-none transition disabled:bg-gray-100"
+          />
 
-          {/* Footer Note */}
-          <p className="text-center text-gray-600 mt-8 text-sm">
-            All fields marked are mandatory. We respect your privacy.
-          </p>
-        </div>
+          {/* Password */}
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            disabled={isLoading}
+            required
+            className="w-full px-4 py-3 rounded-lg border 
+              border-(--color-primary)/20
+              focus:border-(--color-secondary)
+              focus:ring-2 focus:ring-(--color-secondary)/30
+              outline-none transition disabled:bg-gray-100"
+          />
+
+          {/* Login Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 rounded-lg font-bold text-white
+              bg-(--color-secondary)
+              hover:bg-(--color-secondary-hover)
+              shadow-lg transition transform hover:scale-105
+              disabled:scale-100 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          >
+            {isLoading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+
+        {/* Footer */}
+        <p className="text-xs text-center text-(--color-text)/60 mt-6">
+          🔒 Secure login · Trusted by food lovers
+        </p>
       </div>
-    </>
+    </div>
   );
 };
 

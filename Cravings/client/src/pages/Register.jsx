@@ -52,7 +52,6 @@ const Register = () => {
     }
 
     setValidationError(Error);
-
     return Object.keys(Error).length > 0 ? false : true;
   };
 
@@ -79,117 +78,144 @@ const Register = () => {
   };
 
   return (
-    <>
-      <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-6 px-4">
-        <div className="max-w-xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Registration
-            </h1>
-            <p className="text-lg text-gray-600">
-              You are 1 step away to stop your Cavings
-            </p>
+    <div className="min-h-screen flex items-center justify-center bg-(--color-background) px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
+
+        {/* Heading */}
+        <h2 className="text-3xl font-extrabold text-(--color-primary) text-center">
+          Create Account
+        </h2>
+        <p className="text-center text-(--color-text)/70 mt-2 mb-8">
+          Sign up to start ordering delicious food
+        </p>
+
+        <form
+          onSubmit={handleSubmit}
+          onReset={handleClearForm}
+          className="space-y-4"
+        >
+          {/* Full Name */}
+          <div>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Full Name"
+              value={formData.fullName}
+              onChange={handleChange}
+              disabled={isLoading}
+              required
+              className="w-full px-4 py-3 rounded-lg border
+                border-(--color-primary)/20
+                focus:border-(--color-secondary)
+                focus:ring-2 focus:ring-(--color-secondary)/30
+                outline-none transition disabled:bg-gray-100"
+            />
+            {validationError.fullName && (
+              <span className="text-xs text-red-500">
+                {validationError.fullName}
+              </span>
+            )}
           </div>
 
-          {/* Form Container */}
-          <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-            <form
-              onSubmit={handleSubmit}
-              onReset={handleClearForm}
-              className="p-8"
+          {/* Email */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            disabled={isLoading}
+            required
+            className="w-full px-4 py-3 rounded-lg border
+              border-(--color-primary)/20
+              focus:border-(--color-secondary)
+              focus:ring-2 focus:ring-(--color-secondary)/30
+              outline-none transition disabled:bg-gray-100"
+          />
+
+          {/* Mobile */}
+          <input
+            type="tel"
+            name="mobileNumber"
+            placeholder="Mobile Number"
+            maxLength="10"
+            value={formData.mobileNumber}
+            onChange={handleChange}
+            disabled={isLoading}
+            required
+            className="w-full px-4 py-3 rounded-lg border
+              border-(--color-primary)/20
+              focus:border-(--color-secondary)
+              focus:ring-2 focus:ring-(--color-secondary)/30
+              outline-none transition disabled:bg-gray-100"
+          />
+
+          {/* Password */}
+          <input
+            type="password"
+            name="password"
+            placeholder="Create Password"
+            value={formData.password}
+            onChange={handleChange}
+            disabled={isLoading}
+            required
+            className="w-full px-4 py-3 rounded-lg border
+              border-(--color-primary)/20
+              focus:border-(--color-secondary)
+              focus:ring-2 focus:ring-(--color-secondary)/30
+              outline-none transition disabled:bg-gray-100"
+          />
+
+          {/* Confirm Password */}
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            disabled={isLoading}
+            required
+            className="w-full px-4 py-3 rounded-lg border
+              border-(--color-primary)/20
+              focus:border-(--color-secondary)
+              focus:ring-2 focus:ring-(--color-secondary)/30
+              outline-none transition disabled:bg-gray-100"
+          />
+
+          {/* Buttons */}
+          <div className="flex gap-4 pt-4">
+            <button
+              type="reset"
+              disabled={isLoading}
+              className="flex-1 py-3 rounded-lg font-semibold
+                bg-(--color-primary)/10
+                text-(--color-primary)
+                hover:bg-(--color-primary)/20
+                transition disabled:cursor-not-allowed"
             >
-              {/* Personal Information */}
-              <div className="mb-10">
-                <div className="space-y-4">
-                  <div>
-                    <input
-                      type="text"
-                      name="fullName"
-                      placeholder="Full Name"
-                      value={formData.fullName}
-                      onChange={handleChange}
-                      required
-                      disabled={isLoading}
-                      className="w-full h-fit px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                    />
-                    {validationError.fullName && (
-                      <span className="text-xs text-red-500">
-                        {validationError.fullName}
-                      </span>
-                    )}
-                  </div>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full h-fit px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  />
-                  <input
-                    type="tel"
-                    name="mobileNumber"
-                    placeholder="Mobile Number"
-                    maxLength="10"
-                    value={formData.mobileNumber}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  />
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    placeholder="Create Password"
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  />
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    required
-                    disabled={isLoading}
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition disabled:cursor-not-allowed disabled:bg-gray-200"
-                  />
-                </div>
-              </div>
+              Clear
+            </button>
 
-              {/* Submit Button */}
-              <div className="flex gap-4 pt-8 border-t-2 border-gray-200">
-                <button
-                  type="reset"
-                  disabled={isLoading}
-                  className="flex-1 bg-gray-300 text-gray-800 font-bold py-4 px-6 rounded-lg hover:bg-gray-400 transition duration-300 transform hover:scale-105 disabled:scale-100 disabled:bg-gray-300 disabled:cursor-not-allowed"
-                >
-                  Clear Form
-                </button>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 px-6 rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition duration-300 transform hover:scale-105 shadow-lg disabled:scale-100 disabled:bg-gray-300  disabled:cursor-not-allowed"
-                >
-                  {isLoading ? "Submitting" : "Register"}
-                </button>
-              </div>
-            </form>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="flex-1 py-3 rounded-lg font-bold text-white
+                bg-(--color-secondary)
+                hover:bg-(--color-secondary-hover)
+                shadow-lg transition transform hover:scale-105
+                disabled:scale-100 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              {isLoading ? "Creating account..." : "Sign Up"}
+            </button>
           </div>
+        </form>
 
-          {/* Footer Note */}
-          <p className="text-center text-gray-600 mt-8 text-sm">
-            All fields marked are mandatory. We respect your privacy.
-          </p>
-        </div>
+        {/* Footer */}
+        <p className="text-xs text-center text-(--color-text)/60 mt-6">
+          🔒 Your data is safe · No spam guaranteed
+        </p>
       </div>
-    </>
+    </div>
   );
 };
 
