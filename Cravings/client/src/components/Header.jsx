@@ -1,15 +1,16 @@
 import React from "react";
 import tranparentLogo from "../assets/transparentLogo.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
+  const { user, isLogin } = useAuth();
   const navigate = useNavigate();
 
   return (
     <header className="bg-(--color-primary) sticky top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-
           {/* Logo */}
           <Link to={"/"} className="flex items-center">
             <img
@@ -46,20 +47,25 @@ const Header = () => {
 
           {/* Buttons */}
           <div className="flex gap-4">
-            <button
-              onClick={() => navigate("/login")}
-              className="py-2 px-4 font-bold rounded-lg bg-(--color-secondary) hover:bg-(--color-secondary-hover) hover:scale-105 transition transform shadow-md text-white"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => navigate("/register")}
-              className="py-2 px-4 font-bold rounded-lg bg-(--color-secondary) hover:bg-(--color-secondary-hover) hover:scale-105 transition transform shadow-md text-white"
-            >
-              Sign Up
-            </button>
+            {isLogin ? (
+              <span className="text-orange-500">{user.fullName}</span>
+            ) : (
+              <>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="py-2 px-4 font-bold rounded-lg bg-(--color-secondary) hover:bg-(--color-secondary-hover) hover:scale-105 transition transform shadow-md text-white"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => navigate("/register")}
+                  className="py-2 px-4 font-bold rounded-lg bg-(--color-secondary) hover:bg-(--color-secondary-hover) hover:scale-105 transition transform shadow-md text-white"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
-
         </div>
       </div>
     </header>

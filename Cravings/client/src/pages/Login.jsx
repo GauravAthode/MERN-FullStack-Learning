@@ -3,8 +3,11 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import api from "../config/Api";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const { setUser, setIsLogin } = useAuth();
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -12,7 +15,6 @@ const Login = () => {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [validationError, setValidationError] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,41 +22,32 @@ const Login = () => {
   };
 
   const handleClearForm = () => {
-    setFormData({ email: "", password: "" });
-  };
-
-  const validate = () => {
-    let Error = {};
-    if (!/^[\w\.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(formData.email)) {
-      Error.email = "Use Proper Email Format";
-    }
-    setValidationError(Error);
-    return Object.keys(Error).length === 0;
+    setFormData({
+      email: "",
+      password: "",
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!validate()) {
-      setIsLoading(false);
-      toast.error("Fill the Form Correctly");
-      return;
-    }
-
+    console.log(formData);
     try {
       const res = await api.post("/auth/login", formData);
       toast.success(res.data.message);
+      setUser(res.data.data);
+      setIsLogin(true);
+      sessionStorage.setItem("CravingUser",JSON.stringify(res.data.data))
       handleClearForm();
       navigate("/user-dashboard");
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message || "Unknown Error");
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-(--color-background) px-4 py-10">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
