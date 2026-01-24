@@ -14,12 +14,12 @@ const Home = () => {
           autoPlay
           loop
           muted
-          className="w-full h-full object-cover"
+          className=" w-full h-full object-cover"
         />
 
         <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/40">
           <h1 className="text-5xl font-bold text-pink-400">
-            Welcome to Beauty Makeup
+            Beauty Makeup
           </h1>
           <p className="text-xl text-white mt-3 text-center">
             ✨ Discover premium beauty products designed to enhance your natural
