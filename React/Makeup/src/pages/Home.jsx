@@ -4,7 +4,7 @@ import photo1 from "../assets/homeImages/photo1.png";
 import photo2 from "../assets/homeImages/photo2.png";
 import photo3 from "../assets/homeImages/photo3.png";
 import photo4 from "../assets/homeImages/photo4.png";
-import HomeVideo from"../assets/videos/HomeVideo.mp4"
+import HomeVideo from "../assets/videos/HomeVideo.mp4";
 const Home = () => {
   return (
     <>
@@ -16,18 +16,15 @@ const Home = () => {
           muted
           className=" w-full h-full object-cover"
         />
-
         <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/40">
-          <h1 className="text-5xl font-bold text-pink-400">
-            Beauty Makeup
-          </h1>
+          <h1 className="text-5xl font-bold text-pink-400">Beauty Makeup</h1>
           <p className="text-xl text-white mt-3 text-center">
             ✨ Discover premium beauty products designed to enhance your natural
             glow ✨
           </p>
         </div>
       </div>
-      
+
       <div className="flex gap-3 m-20 p-3 border-10 shadow-2xl border-pink-100 mt-10">
         <div>
           <img src={photo1} alt="photo1" />
